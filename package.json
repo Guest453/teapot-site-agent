@@ -1,0 +1,22 @@
+{
+  "name": "teapot-site-agent",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --env-file=.env --watch src/server.js",
+    "start": "node --env-file=.env src/server.js",
+    "register": "node --env-file=.env scripts/register-command.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@octokit/rest": "^22.0.0",
+    "discord-interactions": "^4.4.0",
+    "express": "^5.1.0",
+    "openai": "^5.23.2",
+    "zod": "^3.25.76"
+  }
+}
