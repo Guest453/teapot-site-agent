@@ -17,6 +17,7 @@
         <div id="score-display">birds: 0</div>
         <div class="teapot" id="clicker" aria-hidden="true">🐦</div>
         <div class="flowey" id="flowey" aria-hidden="true">🌻</div>
+        <div id="dominoes-text" style="display:none; font-size: 1.5rem; color: #f0f; margin-top: 1rem;">MARIO 64: THE THOUSAND-YEAR DOMINOES</div>
       </div>
     </main>
     <script>
@@ -24,6 +25,7 @@
       const scoreDisplay = document.getElementById('score-display');
       const clicker = document.getElementById('clicker');
       const flowey = document.getElementById('flowey');
+      const dominoesText = document.getElementById('dominoes-text');
       
       clicker.addEventListener('click', () => {
         count++;
@@ -41,6 +43,12 @@
           setTimeout(() => {
             flowey.style.transform = 'scale(1) rotate(0deg)';
           }, 200);
+        }
+
+        // the dominoes trigger
+        if (count === 64) {
+          dominoesText.style.display = 'block';
+          document.body.style.animation = 'shake 0.05s infinite';
         }
       });
     </script>
