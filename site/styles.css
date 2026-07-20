@@ -24,6 +24,7 @@ main {
   background: rgba(0, 255, 255, 0.1);
   box-shadow: 0 0 20px #0ff;
   backdrop-filter: blur(4px);
+  text-align: center;
 }
 
 .eyebrow { color: #0ff; letter-spacing: .14em; text-transform: uppercase; font-size: .75rem; }
@@ -43,16 +44,35 @@ h1.glitch {
   100% { transform: translate(1px, 2px); }
 }
 
-.intro { max-width: 42ch; color: #0ff; font-size: clamp(1rem, 2vw, 1.25rem); }
+.intro { max-width: 42ch; color: #0ff; font-size: clamp(1rem, 2vw, 1.25rem); margin: 0 auto 2rem; }
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+#score-display {
+  font-size: 2rem;
+  font-weight: bold;
+  text-shadow: 0 0 10px #0ff;
+}
 
 .teapot {
-  margin-top: 2rem;
   font-size: 8rem;
   filter: drop-shadow(0 0 15px #0ff);
   animation: float 2s ease-in-out infinite;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.1s ease;
 }
 
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-20px); }
+}
+
+.birdvirus {
+  /* existing birdvirus styles if any */
 }

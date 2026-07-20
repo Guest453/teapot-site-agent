@@ -12,7 +12,27 @@
       <p class="eyebrow">cesustheteapot.dpdns.org</p>
       <h1 class="glitch">The teapot is warming up.</h1>
       <p class="intro">This little corner of the web can evolve from a Discord command.</p>
-      <div class="teapot" aria-hidden="true">🐦</div>
+      
+      <div class="game-container">
+        <div id="score-display">birds: 0</div>
+        <div class="teapot" id="clicker" aria-hidden="true">🐦</div>
+      </div>
     </main>
+    <script>
+      let count = 0;
+      const scoreDisplay = document.getElementById('score-display');
+      const clicker = document.getElementById('clicker');
+      
+      clicker.addEventListener('click', () => {
+        count++;
+        scoreDisplay.innerText = `birds: ${count}`;
+        
+        // little juice effect
+        clicker.style.transform = 'scale(1.2)';
+        setTimeout(() => {
+          clicker.style.transform = 'scale(1)';
+        }, 50);
+      });
+    </script>
   </body>
 </html>
