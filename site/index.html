@@ -16,12 +16,14 @@
       <div class="game-container">
         <div id="score-display">birds: 0</div>
         <div class="teapot" id="clicker" aria-hidden="true">🐦</div>
+        <div class="flowey" id="flowey" aria-hidden="true">🌻</div>
       </div>
     </main>
     <script>
       let count = 0;
       const scoreDisplay = document.getElementById('score-display');
       const clicker = document.getElementById('clicker');
+      const flowey = document.getElementById('flowey');
       
       clicker.addEventListener('click', () => {
         count++;
@@ -32,6 +34,14 @@
         setTimeout(() => {
           clicker.style.transform = 'scale(1)';
         }, 50);
+
+        // flowey reaction
+        if (count % 10 === 0) {
+          flowey.style.transform = 'scale(1.5) rotate(20deg)';
+          setTimeout(() => {
+            flowey.style.transform = 'scale(1) rotate(0deg)';
+          }, 200);
+        }
       });
     </script>
   </body>
