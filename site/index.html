@@ -3,57 +3,131 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="A tiny website maintained by a Discord-powered site agent." />
-    <title>Cesus the Teapot</title>
+    <meta name="description" content="ANT BOT - the greatest creation known to robotkind" />
+    <title>ANT BOT</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body class="birdvirus">
-    <div class="virus-overlay"></div>
+  <body>
+    <div class="scanlines"></div>
     <main>
-      <p class="eyebrow">cesustheteapot.dpdns.org</p>
-      <h1 class="glitch">The teapot is warming up.</h1>
-      <p class="intro">This little corner of the web can evolve from a Discord command.</p>
-      
-      <div class="game-container">
-        <div id="score-display">birds: 0</div>
-        <div class="teapot" id="clicker" aria-hidden="true">🐦</div>
-        <div class="flowey" id="flowey" aria-hidden="true">🌻</div>
-        <div id="dominoes-text" style="display:none; font-size: 1.5rem; color: #f0f; margin-top: 1rem;">MARIO 64: THE THOUSAND-YEAR DOMINOES</div>
+      <p class="eyebrow">// ANT BOT v1.0 //</p>
+      <h1 class="glitch" data-text="ANT BOT">ANT BOT</h1>
+      <p class="intro">small. loud. unstoppable. the world's greatest ant-powered robot has arrived.</p>
+
+      <div class="ant-container">
+        <div class="ant-bot" id="antbot">
+          <div class="ant-head">
+            <div class="ant-eye left"></div>
+            <div class="ant-eye right"></div>
+            <div class="ant-antenna">
+              <div class="antenna-tip"></div>
+            </div>
+            <div class="ant-antenna right-ant">
+              <div class="antenna-tip"></div>
+            </div>
+          </div>
+          <div class="ant-body">
+            <div class="leg leg1"></div>
+            <div class="leg leg2"></div>
+            <div class="leg leg3"></div>
+            <div class="leg leg4"></div>
+            <div class="leg leg5"></div>
+            <div class="leg leg6"></div>
+          </div>
+          <div class="ant-tail"></div>
+        </div>
       </div>
 
-      <div class="bouncing-embed">
-        <img src="https://img.youtube.com/vi/d7dRq7kYEss/0.jpg" style="width: 300px; border: 2px solid #0ff;" />
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-label">POWER</span>
+          <div class="stat-bar"><div class="fill" style="width: 89%"></div></div>
+        </div>
+        <div class="stat">
+          <span class="stat-label">SPEED</span>
+          <div class="stat-bar"><div class="fill" style="width: 95%"></div></div>
+        </div>
+        <div class="stat">
+          <span class="stat-label">ANT-ITUDE</span>
+          <div class="stat-bar"><div class="fill" style="width: 100%"></div></div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button id="btn-walk">WALK</button>
+        <button id="btn-shake">SHAKE</button>
+        <button id="btn-jump">JUMP</button>
+      </div>
+
+      <div class="sound-toggle">
+        <button id="sound-btn">🔊 SOUND: ON</button>
+      </div>
+
+      <div class="ant-facts">
+        <h2>FUN FACTS</h2>
+        <ul id="facts-list">
+          <li>ant bots can lift 50x their body weight</li>
+          <li>they communicate through vibrations</li>
+          <li>there are 20,000 ant bot species worldwide</li>
+        </ul>
+        <button id="new-fact">MORE FACTS</button>
       </div>
     </main>
+
     <script>
-      let count = 0;
-      const scoreDisplay = document.getElementById('score-display');
-      const clicker = document.getElementById('clicker');
-      const flowey = document.getElementById('flowey');
-      const dominoesText = document.getElementById('dominoes-text');
-      
-      clicker.addEventListener('click', () => {
-        count++;
-        scoreDisplay.innerText = `birds: ${count}`;
-        
-        // little juice effect
-        clicker.style.transform = 'scale(1.2)';
-        setTimeout(() => {
-          clicker.style.transform = 'scale(1)';
-        }, 50);
+      const antbot = document.getElementById('antbot');
+      const btnWalk = document.getElementById('btn-walk');
+      const btnShake = document.getElementById('btn-shake');
+      const btnJump = document.getElementById('btn-jump');
+      const soundBtn = document.getElementById('sound-btn');
+      const newFactBtn = document.getElementById('new-fact');
+      const factsList = document.getElementById('facts-list');
 
-        // flowey reaction
-        if (count % 10 === 0) {
-          flowey.style.transform = 'scale(1.5) rotate(20deg)';
-          setTimeout(() => {
-            flowey.style.transform = 'scale(1) rotate(0deg)';
-          }, 200);
-        }
+      let soundOn = true;
 
-        // the dominoes trigger
-        if (count === 64) {
-          dominoesText.style.display = 'block';
-          document.body.style.animation = 'shake 0.05s infinite';
+      const facts = [
+        'ant bots can lift 50x their body weight',
+        'they communicate through vibrations',
+        'there are 20,000 ant bot species worldwide',
+        'ant bots work together as a unified hive mind',
+        'some ant bots can survive underwater for days',
+        'ant bots never stop searching for crumbs',
+        'they have 250 brain cells but are still pretty smart'
+      ];
+
+      btnWalk.addEventListener('click', () => {
+        antbot.style.animation = 'none';
+        void antbot.offsetWidth;
+        antbot.classList.add('walking');
+        setTimeout(() => antbot.classList.remove('walking'), 1000);
+      });
+
+      btnShake.addEventListener('click', () => {
+        antbot.style.animation = 'none';
+        void antbot.offsetWidth;
+        antbot.classList.add('shaking');
+        setTimeout(() => antbot.classList.remove('shaking'), 500);
+      });
+
+      btnJump.addEventListener('click', () => {
+        antbot.style.animation = 'none';
+        void antbot.offsetWidth;
+        antbot.classList.add('jumping');
+        setTimeout(() => antbot.classList.remove('jumping'), 600);
+      });
+
+      soundBtn.addEventListener('click', () => {
+        soundOn = !soundOn;
+        soundBtn.textContent = soundOn ? '🔊 SOUND: ON' : '🔇 SOUND: OFF';
+      });
+
+      newFactBtn.addEventListener('click', () => {
+        const randomFact = facts[Math.floor(Math.random() * facts.length)];
+        const li = document.createElement('li');
+        li.textContent = randomFact;
+        factsList.appendChild(li);
+        if (factsList.children.length > 5) {
+          factsList.removeChild(factsList.firstChild);
         }
       });
     </script>
