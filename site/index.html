@@ -3,133 +3,498 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="ANT BOT - the greatest creation known to robotkind" />
-    <title>ANT BOT</title>
-    <link rel="stylesheet" href="styles.css" />
+    <meta name="description" content="BIRDVIRUS - something went very wrong" />
+    <title>BIRDVIRUS</title>
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        background: #0a000f;
+        font-family: 'Courier New', monospace;
+        color: #ffffff;
+        min-height: 100vh;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow-x: hidden;
+      }
+
+      .glitch-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(255, 0, 255, 0.03) 2px,
+          rgba(255, 0, 255, 0.03) 4px
+        );
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .scanlines {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: repeating-linear-gradient(
+          0deg,
+          rgba(0, 0, 0, 0.15),
+          rgba(0, 0, 0, 0.15) 1px,
+          transparent 1px,
+          transparent 2px
+        );
+        pointer-events: none;
+        z-index: 100;
+      }
+
+      .noise {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 99;
+        opacity: 0.05;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        animation: noise-move 0.5s steps(5) infinite;
+      }
+
+      @keyframes noise-move {
+        0% { transform: translate(0, 0); }
+        20% { transform: translate(-5%, -5%); }
+        40% { transform: translate(5%, 5%); }
+        60% { transform: translate(-5%, 5%); }
+        80% { transform: translate(5%, -5%); }
+        100% { transform: translate(0, 0); }
+      }
+
+      main {
+        position: relative;
+        z-index: 10;
+        text-align: center;
+        padding: 2rem;
+        max-width: 800px;
+      }
+
+      h1 {
+        font-size: clamp(3rem, 12vw, 7rem);
+        margin: 0 0 0.5rem;
+        letter-spacing: 0.3em;
+        text-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ff, 0 0 80px #00ffff;
+        animation: title-pulse 1.5s ease-in-out infinite, glitch-h1 2s infinite;
+        position: relative;
+      }
+
+      @keyframes glitch-h1 {
+        0%, 85%, 100% { transform: translate(0); clip-path: none; }
+        86% { transform: translate(-5px, 0); clip-path: polygon(0 20%, 100% 20%, 100% 40%, 0 40%); }
+        87% { transform: translate(5px, 0); clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%); }
+        88% { transform: translate(0); clip-path: none; }
+        90% { transform: translate(-3px, 2px); }
+        92% { transform: translate(3px, -2px); }
+        94% { transform: translate(0); }
+      }
+
+      @keyframes title-pulse {
+        0%, 100% { text-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ff; }
+        50% { text-shadow: 0 0 40px #ff66ff, 0 0 80px #ff00ff, 0 0 120px #00ffff; }
+      }
+
+      .subtitle {
+        color: #ff3333;
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        letter-spacing: 0.3em;
+        animation: subtitle-glitch 3s infinite;
+      }
+
+      @keyframes subtitle-glitch {
+        0%, 80%, 100% { opacity: 1; transform: translate(0); color: #ff3333; }
+        81% { opacity: 0.8; transform: translate(3px, 0); color: #00ffff; }
+        82% { opacity: 1; transform: translate(-3px, 0); color: #ff00ff; }
+        83% { opacity: 0.3; }
+        84% { opacity: 1; transform: translate(0); color: #ff3333; }
+      }
+
+      .virus-gallery {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin: 2rem 0;
+      }
+
+      .virus-container {
+        position: relative;
+        display: inline-block;
+      }
+
+      .virus-img {
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+        width: 150px;
+        height: 150px;
+        animation: virus-float 2s ease-in-out infinite, virus-corrupt 0.3s infinite;
+      }
+
+      .virus-img:nth-child(2) {
+        animation-delay: 0.3s;
+        width: 120px;
+        height: 120px;
+      }
+
+      .virus-img:nth-child(3) {
+        animation-delay: 0.6s;
+        width: 100px;
+        height: 100px;
+      }
+
+      @keyframes virus-float {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        25% { transform: translate(-5px, -8px) rotate(-3deg); }
+        50% { transform: translate(0, -15px) rotate(0deg); }
+        75% { transform: translate(5px, -8px) rotate(3deg); }
+      }
+
+      @keyframes virus-corrupt {
+        0%, 90% { filter: hue-rotate(0deg) saturate(1) brightness(1); }
+        91% { filter: hue-rotate(90deg) saturate(2) brightness(1.5); }
+        93% { filter: hue-rotate(180deg) saturate(3) brightness(0.8); }
+        95% { filter: hue-rotate(270deg) saturate(2) brightness(1.2); }
+        97% { filter: hue-rotate(360deg) saturate(1) brightness(1); }
+        100% { filter: hue-rotate(0deg) saturate(1) brightness(1); }
+      }
+
+      .virus-label {
+        font-size: 0.7rem;
+        color: #ff0000;
+        letter-spacing: 0.3em;
+        margin-top: 0.5rem;
+        animation: label-blink 0.5s step-end infinite;
+      }
+
+      @keyframes label-blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+      }
+
+      .heart-container {
+        margin: 2rem 0;
+      }
+
+      .heart {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        background: #ff0000;
+        transform: rotate(-45deg);
+        animation: heart-beat 0.8s ease-in-out infinite, heart-glitch 1.5s infinite;
+        box-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000;
+      }
+
+      @keyframes heart-glitch {
+        0%, 75%, 100% { transform: rotate(-45deg) scale(1); background: #ff0000; box-shadow: 0 0 20px #ff0000; }
+        77% { transform: rotate(-45deg) scale(1.5) translate(5px, 0); background: #00ffff; box-shadow: 0 0 40px #00ffff; }
+        79% { transform: rotate(-45deg) scale(0.7); background: #ff00ff; box-shadow: 0 0 30px #ff00ff; }
+        81% { transform: rotate(-45deg) scale(1.2) translate(-5px, 0); background: #ffff00; box-shadow: 0 0 25px #ffff00; }
+      }
+
+      @keyframes heart-beat {
+        0%, 100% { transform: rotate(-45deg) scale(1); }
+        15% { transform: rotate(-45deg) scale(1.3); }
+        30% { transform: rotate(-45deg) scale(1); }
+        45% { transform: rotate(-45deg) scale(1.2); }
+        60% { transform: rotate(-45deg) scale(1); }
+      }
+
+      .tension-bar {
+        width: 400px;
+        max-width: 80vw;
+        height: 25px;
+        background: #111;
+        border: 2px solid #333;
+        margin: 1.5rem auto;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .tension-fill {
+        height: 100%;
+        width: 100%;
+        background: linear-gradient(90deg, #ff0000, #ff00ff, #00ffff, #00ff00, #ff0000);
+        background-size: 400% 100%;
+        animation: tension-cycle 1s linear infinite;
+      }
+
+      @keyframes tension-cycle {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 400% 50%; }
+      }
+
+      .tension-label {
+        font-size: 0.8rem;
+        letter-spacing: 0.4em;
+        color: #ff3333;
+        margin-bottom: 0.5rem;
+        animation: tension-text-glitch 2s infinite;
+      }
+
+      @keyframes tension-text-glitch {
+        0%, 90% { color: #ff3333; }
+        91% { color: #00ffff; }
+        93% { color: #ff00ff; }
+        95% { color: #ff3333; }
+      }
+
+      .characters {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin: 2rem 0;
+      }
+
+      .char {
+        width: 130px;
+        padding: 1.5rem;
+        border: 2px solid;
+        border-radius: 8px;
+        transition: transform 0.3s, box-shadow 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .char::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -150%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+        animation: char-shimmer 2s infinite;
+      }
+
+      @keyframes char-shimmer {
+        0% { left: -150%; }
+        50%, 100% { left: 150%; }
+      }
+
+      .char:hover {
+        transform: translateY(-15px) scale(1.1);
+      }
+
+      .kris { border-color: #ffaa00; background: rgba(255,170,0,0.1); }
+      .kris:hover { box-shadow: 0 0 40px rgba(255,170,0,0.6); }
+
+      .susie { border-color: #9933ff; background: rgba(153,51,255,0.1); }
+      .susie:hover { box-shadow: 0 0 40px rgba(153,51,255,0.6); }
+
+      .ralsei { border-color: #ff66ff; background: rgba(255,102,255,0.1); }
+      .ralsei:hover { box-shadow: 0 0 40px rgba(255,102,255,0.6); }
+
+      .noelle { border-color: #66ffff; background: rgba(102,255,255,0.1); }
+      .noelle:hover { box-shadow: 0 0 40px rgba(102,255,255,0.6); }
+
+      .char-icon {
+        font-size: 3.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .kris .char-icon { color: #ffaa00; }
+      .susie .char-icon { color: #9933ff; }
+      .ralsei .char-icon { color: #ff66ff; }
+      .noelle .char-icon { color: #66ffff; }
+
+      .char-name {
+        font-size: 1.3rem;
+        letter-spacing: 0.15em;
+        margin-bottom: 0.3rem;
+      }
+
+      .char-desc {
+        font-size: 0.75rem;
+        color: #888;
+      }
+
+      .message {
+        margin: 2rem 0;
+        padding: 2rem;
+        border: 1px solid #ff00ff;
+        background: rgba(255,0,255,0.05);
+        max-width: 550px;
+        font-size: 1.1rem;
+        line-height: 1.8;
+        animation: msg-glitch 4s infinite;
+      }
+
+      @keyframes msg-glitch {
+        0%, 85%, 100% { border-color: #ff00ff; transform: translate(0); }
+        86% { border-color: #00ffff; transform: translate(-3px, 2px); }
+        88% { border-color: #ff0000; transform: translate(3px, -2px); }
+        90% { border-color: #ffff00; transform: translate(-2px, -1px); }
+        92% { border-color: #ff00ff; transform: translate(0); }
+      }
+
+      .message .speaker {
+        color: #ff66ff;
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+        animation: speaker-glitch 3s infinite;
+      }
+
+      @keyframes speaker-glitch {
+        0%, 88% { color: #ff66ff; }
+        89% { color: #00ffff; }
+        90% { color: #ff0000; }
+        91% { color: #ff66ff; }
+      }
+
+      .chaos-state {
+        font-size: 1rem;
+        color: #ff3333;
+        letter-spacing: 0.3em;
+        animation: chaos-blink 0.2s step-end infinite;
+        margin-top: 1.5rem;
+      }
+
+      @keyframes chaos-blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+      }
+
+      .corrupt-text {
+        font-size: 0.8rem;
+        color: #00ffff;
+        margin-top: 2rem;
+        opacity: 0.8;
+        letter-spacing: 0.15em;
+        animation: corrupt-flicker 5s infinite;
+      }
+
+      @keyframes corrupt-flicker {
+        0%, 70% { opacity: 0.8; }
+        71% { opacity: 0.1; }
+        72% { opacity: 0.9; }
+        73% { opacity: 0.2; }
+        74% { opacity: 0.8; }
+        100% { opacity: 0.8; }
+      }
+
+      .sector-warning {
+        font-size: 0.75rem;
+        color: #ff0000;
+        margin-top: 1rem;
+        letter-spacing: 0.2em;
+        animation: warning-pulse 1s ease-in-out infinite;
+      }
+
+      @keyframes warning-pulse {
+        0%, 100% { opacity: 0.6; }
+        50% { opacity: 1; }
+      }
+
+      .birdvirus-logo {
+        font-size: 0.6rem;
+        color: #ff00ff;
+        margin-top: 3rem;
+        letter-spacing: 0.5em;
+        opacity: 0.5;
+      }
+
+      footer {
+        position: relative;
+        z-index: 10;
+        color: #444;
+        font-size: 0.7rem;
+        padding: 2rem;
+        letter-spacing: 0.1em;
+        margin-top: 2rem;
+      }
+    </style>
   </head>
   <body>
+    <div class="glitch-overlay"></div>
+    <div class="noise"></div>
     <div class="scanlines"></div>
+
     <main>
-      <p class="eyebrow">// ANT BOT v1.0 //</p>
-      <h1 class="glitch" data-text="ANT BOT">ANT BOT</h1>
-      <p class="intro">small. loud. unstoppable. the world's greatest ant-powered robot has arrived.</p>
+      <h1>BIRDVIRUS</h1>
+      <p class="subtitle">// something went very wrong //</p>
 
-      <div class="ant-container">
-        <div class="ant-bot" id="antbot">
-          <div class="ant-head">
-            <div class="ant-eye left"></div>
-            <div class="ant-eye right"></div>
-            <div class="ant-antenna">
-              <div class="antenna-tip"></div>
-            </div>
-            <div class="ant-antenna right-ant">
-              <div class="antenna-tip"></div>
-            </div>
-          </div>
-          <div class="ant-body">
-            <div class="leg leg1"></div>
-            <div class="leg leg2"></div>
-            <div class="leg leg3"></div>
-            <div class="leg leg4"></div>
-            <div class="leg leg5"></div>
-            <div class="leg leg6"></div>
-          </div>
-          <div class="ant-tail"></div>
+      <div class="virus-gallery">
+        <div class="virus-container">
+          <img src="aqua.webp" alt="???" class="virus-img" onerror="this.style.display='none'" />
+          <div class="virus-label">[ ENTITY ALPHA ]</div>
+        </div>
+        <div class="virus-container">
+          <img src="aqua.webp" alt="???" class="virus-img" onerror="this.style.display='none'" />
+          <div class="virus-label">[ ENTITY BETA ]</div>
+        </div>
+        <div class="virus-container">
+          <img src="aqua.webp" alt="???" class="virus-img" onerror="this.style.display='none'" />
+          <div class="virus-label">[ ENTITY GAMMA ]</div>
         </div>
       </div>
 
-      <div class="stats">
-        <div class="stat">
-          <span class="stat-label">POWER</span>
-          <div class="stat-bar"><div class="fill" style="width: 89%"></div></div>
+      <div class="heart-container">
+        <div class="heart"></div>
+      </div>
+
+      <div class="tension-label">⚠ TENSION ⚠</div>
+      <div class="tension-bar">
+        <div class="tension-fill"></div>
+      </div>
+
+      <div class="characters">
+        <div class="char kris">
+          <div class="char-icon">🗡️</div>
+          <div class="char-name">KRIS</div>
+          <div class="char-desc">the vessel</div>
         </div>
-        <div class="stat">
-          <span class="stat-label">SPEED</span>
-          <div class="stat-bar"><div class="fill" style="width: 95%"></div></div>
+        <div class="char susie">
+          <div class="char-icon">⚔️</div>
+          <div class="char-name">SUSIE</div>
+          <div class="char-desc">the dark world warrior</div>
         </div>
-        <div class="stat">
-          <span class="stat-label">ANT-ITUDE</span>
-          <div class="stat-bar"><div class="fill" style="width: 100%"></div></div>
+        <div class="char ralsei">
+          <div class="char-icon">🎩</div>
+          <div class="char-name">RALSEI</div>
+          <div class="char-desc">the prince of darkness</div>
+        </div>
+        <div class="char noelle">
+          <div class="char-icon">❄️</div>
+          <div class="char-name">NOELLE</div>
+          <div class="char-desc">holiday girl</div>
         </div>
       </div>
 
-      <div class="controls">
-        <button id="btn-walk">WALK</button>
-        <button id="btn-shake">SHAKE</button>
-        <button id="btn-jump">JUMP</button>
+      <div class="message">
+        <span class="speaker">???</span>
+        it's dangerous to go alone.
+        <br><br>
+        but not as dangerous as what's coming.
       </div>
 
-      <div class="sound-toggle">
-        <button id="sound-btn">🔊 SOUND: ON</button>
-      </div>
+      <p class="chaos-state">[ CHAOS FORM ACTIVATED ]</p>
+      <p class="corrupt-text">ERROR: MULTIPLE UNKNOWN ENTITIES DETECTED</p>
+      <p class="sector-warning">⚠ SECTOR 7 - QUARANTINE BREACH ⚠</p>
 
-      <div class="ant-facts">
-        <h2>FUN FACTS</h2>
-        <ul id="facts-list">
-          <li>ant bots can lift 50x their body weight</li>
-          <li>they communicate through vibrations</li>
-          <li>there are 20,000 ant bot species worldwide</li>
-        </ul>
-        <button id="new-fact">MORE FACTS</button>
-      </div>
+      <p class="birdvirus-logo">BIRDVIRUS CORP © 2026</p>
     </main>
 
-    <script>
-      const antbot = document.getElementById('antbot');
-      const btnWalk = document.getElementById('btn-walk');
-      const btnShake = document.getElementById('btn-shake');
-      const btnJump = document.getElementById('btn-jump');
-      const soundBtn = document.getElementById('sound-btn');
-      const newFactBtn = document.getElementById('new-fact');
-      const factsList = document.getElementById('facts-list');
-
-      let soundOn = true;
-
-      const facts = [
-        'ant bots can lift 50x their body weight',
-        'they communicate through vibrations',
-        'there are 20,000 ant bot species worldwide',
-        'ant bots work together as a unified hive mind',
-        'some ant bots can survive underwater for days',
-        'ant bots never stop searching for crumbs',
-        'they have 250 brain cells but are still pretty smart'
-      ];
-
-      btnWalk.addEventListener('click', () => {
-        antbot.style.animation = 'none';
-        void antbot.offsetWidth;
-        antbot.classList.add('walking');
-        setTimeout(() => antbot.classList.remove('walking'), 1000);
-      });
-
-      btnShake.addEventListener('click', () => {
-        antbot.style.animation = 'none';
-        void antbot.offsetWidth;
-        antbot.classList.add('shaking');
-        setTimeout(() => antbot.classList.remove('shaking'), 500);
-      });
-
-      btnJump.addEventListener('click', () => {
-        antbot.style.animation = 'none';
-        void antbot.offsetWidth;
-        antbot.classList.add('jumping');
-        setTimeout(() => antbot.classList.remove('jumping'), 600);
-      });
-
-      soundBtn.addEventListener('click', () => {
-        soundOn = !soundOn;
-        soundBtn.textContent = soundOn ? '🔊 SOUND: ON' : '🔇 SOUND: OFF';
-      });
-
-      newFactBtn.addEventListener('click', () => {
-        const randomFact = facts[Math.floor(Math.random() * facts.length)];
-        const li = document.createElement('li');
-        li.textContent = randomFact;
-        factsList.appendChild(li);
-        if (factsList.children.length > 5) {
-          factsList.removeChild(factsList.firstChild);
-        }
-      });
-    </script>
+    <footer>
+      toby fox // undertale // deltarune // birdvirus
+    </footer>
   </body>
 </html>
