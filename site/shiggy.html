@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="shiggy - based discord client mod" />
+    <title>shiggy</title>
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        min-height: 100vh;
+        background: #1a1a2e;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+      }
+
+      .container {
+        max-width: 600px;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 4rem;
+        background: linear-gradient(135deg, #ff6b6b, #ffd93d, #6bcb77, #4d96ff, #9b59b6);
+        background-size: 300% 300%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: gradient-shift 5s ease infinite;
+        margin-bottom: 0.5rem;
+      }
+
+      @keyframes gradient-shift {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+      }
+
+      .tagline {
+        color: #888;
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        letter-spacing: 0.1em;
+      }
+
+      .emoji-float {
+        font-size: 5rem;
+        margin: 2rem 0;
+        animation: bounce 2s ease-in-out infinite;
+      }
+
+      @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+      }
+
+      .desc {
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 12px;
+        padding: 2rem;
+        margin: 1.5rem 0;
+      }
+
+      .desc p {
+        color: #ccc;
+        line-height: 1.8;
+        font-size: 1rem;
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      .feature {
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 8px;
+        padding: 1rem;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .feature:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      }
+
+      .feature-icon {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .feature-name {
+        font-size: 0.9rem;
+        color: #fff;
+        font-weight: 600;
+      }
+
+      .cta {
+        display: inline-block;
+        background: linear-gradient(135deg, #ff6b6b, #9b59b6);
+        color: #fff;
+        text-decoration: none;
+        padding: 1rem 2.5rem;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-top: 1rem;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .cta:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 40px rgba(155, 89, 182, 0.4);
+      }
+
+      .heart {
+        color: #ff6b6b;
+        animation: heartbeat 1s ease-in-out infinite;
+        display: inline-block;
+      }
+
+      @keyframes heartbeat {
+        0%, 100% { transform: scale(1); }
+        15% { transform: scale(1.2); }
+        30% { transform: scale(1); }
+        45% { transform: scale(1.15); }
+        60% { transform: scale(1); }
+      }
+
+      footer {
+        margin-top: 3rem;
+        color: #555;
+        font-size: 0.8rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>shiggy</h1>
+      <p class="tagline">// the cutest discord client mod :3</p>
+
+      <div class="emoji-float">:shiggy:</div>
+
+      <div class="desc">
+        <p>
+          based on the cutest discord client mod <span class="heart">♥</span>
+          <br><br>
+          customize your discord experience with style and personality.
+          because why not make your chat client adorbz?
+        </p>
+      </div>
+
+      <div class="features">
+        <div class="feature">
+          <div class="feature-icon">🎨</div>
+          <div class="feature-name">custom themes</div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">😎</div>
+          <div class="feature-name">emoji packs</div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">✨</div>
+          <div class="feature-name">animations</div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">⚡</div>
+          <div class="feature-name">fast & light</div>
+        </div>
+      </div>
+
+      <a href="#" class="cta">download shiggy :3</a>
+
+      <footer>
+        made with <span class="heart">♥</span> for the cutest discord users
+      </footer>
+    </div>
+  </body>
+</html>
