@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="DELTARUNE - the shadow council awaits" />
+    <title>DELTARUNE</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      body {
+        background: #1a0a2e;
+        font-family: 'Courier New', monospace;
+        color: #ffffff;
+        min-height: 100vh;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow-x: hidden;
+      }
+
+      .darken {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.7) 100%);
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .vignette {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(ellipse at center, transparent 50%, #000000 150%);
+        pointer-events: none;
+        z-index: 2;
+      }
+
+      main {
+        position: relative;
+        z-index: 10;
+        text-align: center;
+        padding: 2rem;
+      }
+
+      h1 {
+        font-size: clamp(3rem, 10vw, 6rem);
+        margin: 0 0 0.5rem;
+        letter-spacing: 0.3em;
+        text-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ff;
+        animation: title-pulse 2s ease-in-out infinite;
+      }
+
+      @keyframes title-pulse {
+        0%, 100% { text-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ff; }
+        50% { text-shadow: 0 0 30px #ff66ff, 0 0 60px #ff00ff; }
+      }
+
+      .subtitle {
+        color: #aaa;
+        font-size: 1rem;
+        margin-bottom: 2rem;
+        letter-spacing: 0.2em;
+      }
+
+      .heart {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background: #ff0000;
+        transform: rotate(-45deg);
+        margin: 2rem 0;
+        animation: heart-beat 1s ease-in-out infinite;
+        box-shadow: 0 0 15px #ff0000;
+      }
+
+      @keyframes heart-beat {
+        0%, 100% { transform: rotate(-45deg) scale(1); }
+        15% { transform: rotate(-45deg) scale(1.2); }
+        30% { transform: rotate(-45deg) scale(1); }
+        45% { transform: rotate(-45deg) scale(1.15); }
+        60% { transform: rotate(-45deg) scale(1); }
+      }
+
+      .characters {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin: 2rem 0;
+      }
+
+      .char {
+        width: 120px;
+        padding: 1.5rem;
+        border: 2px solid;
+        border-radius: 8px;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .char:hover {
+        transform: translateY(-10px);
+      }
+
+      .kris { border-color: #ffaa00; background: rgba(255,170,0,0.1); }
+      .kris:hover { box-shadow: 0 0 30px rgba(255,170,0,0.5); }
+
+      .susie { border-color: #9933ff; background: rgba(153,51,255,0.1); }
+      .susie:hover { box-shadow: 0 0 30px rgba(153,51,255,0.5); }
+
+      .ralsei { border-color: #ff66ff; background: rgba(255,102,255,0.1); }
+      .ralsei:hover { box-shadow: 0 0 30px rgba(255,102,255,0.5); }
+
+      .noelle { border-color: #66ffff; background: rgba(102,255,255,0.1); }
+      .noelle:hover { box-shadow: 0 0 30px rgba(102,255,255,0.5); }
+
+      .char-icon {
+        font-size: 3rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .kris .char-icon { color: #ffaa00; }
+      .susie .char-icon { color: #9933ff; }
+      .ralsei .char-icon { color: #ff66ff; }
+      .noelle .char-icon { color: #66ffff; }
+
+      .char-name {
+        font-size: 1.2rem;
+        letter-spacing: 0.15em;
+        margin-bottom: 0.3rem;
+      }
+
+      .char-desc {
+        font-size: 0.75rem;
+        color: #888;
+      }
+
+      .message {
+        margin: 2rem 0;
+        padding: 1.5rem 2rem;
+        border: 1px solid #444;
+        background: rgba(0,0,0,0.5);
+        max-width: 500px;
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+
+      .message .speaker {
+        color: #ff66ff;
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+      }
+
+      .tension-bar {
+        width: 300px;
+        max-width: 80vw;
+        height: 20px;
+        background: #222;
+        border: 2px solid #444;
+        margin: 1.5rem auto;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .tension-fill {
+        height: 100%;
+        width: 75%;
+        background: linear-gradient(90deg, #ff00ff, #ff66ff);
+        animation: tension-pulse 1.5s ease-in-out infinite;
+      }
+
+      @keyframes tension-pulse {
+        0%, 100% { opacity: 0.7; }
+        50% { opacity: 1; }
+      }
+
+      .tension-label {
+        font-size: 0.7rem;
+        letter-spacing: 0.3em;
+        color: #888;
+        margin-bottom: 0.5rem;
+      }
+
+      .shadow-crystal {
+        display: inline-block;
+        width: 30px;
+        height: 40px;
+        background: linear-gradient(135deg, #9933ff, #ff00ff);
+        clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        margin: 1rem 0;
+        animation: crystal-float 2s ease-in-out infinite;
+        box-shadow: 0 0 20px #ff00ff;
+      }
+
+      @keyframes crystal-float {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-10px) rotate(5deg); }
+      }
+
+      .chaos-state {
+        font-size: 0.8rem;
+        color: #ff3333;
+        letter-spacing: 0.2em;
+        animation: chaos-blink 0.5s step-end infinite;
+      }
+
+      @keyframes chaos-blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+      }
+
+      footer {
+        position: relative;
+        z-index: 10;
+        color: #444;
+        font-size: 0.7rem;
+        padding: 2rem;
+        letter-spacing: 0.1em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="darken"></div>
+    <div class="vignette"></div>
+
+    <main>
+      <h1>DELTARUNE</h1>
+      <p class="subtitle">// shadow council //</p>
+
+      <div class="shadow-crystal"></div>
+
+      <div class="heart"></div>
+
+      <div class="tension-label">TENSION</div>
+      <div class="tension-bar">
+        <div class="tension-fill"></div>
+      </div>
+
+      <div class="characters">
+        <div class="char kris">
+          <div class="char-icon">🗡️</div>
+          <div class="char-name">KRIS</div>
+          <div class="char-desc">the vessel</div>
+        </div>
+        <div class="char susie">
+          <div class="char-icon">⚔️</div>
+          <div class="char-name">SUSIE</div>
+          <div class="char-desc">the dark world warrior</div>
+        </div>
+        <div class="char ralsei">
+          <div class="char-icon">🎩</div>
+          <div class="char-name">RALSEI</div>
+          <div class="char-desc">the prince of darkness</div>
+        </div>
+        <div class="char noelle">
+          <div class="char-icon">❄️</div>
+          <div class="char-name">NOELLE</div>
+          <div class="char-desc">holiday girl</div>
+        </div>
+      </div>
+
+      <div class="message">
+        <span class="speaker">???</span>
+        it's dangerous to go alone.
+      </div>
+
+      <p class="chaos-state">[ CHAOS FORM ACTIVATED ]</p>
+    </main>
+
+    <footer>
+      toby fox // undertale // deltarune
+    </footer>
+  </body>
+</html>
