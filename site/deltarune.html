@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="DELTARUNE - the shadow council awaits" />
-    <title>DELTARUNE</title>
+    <meta name="description" content="DELTARUNE BIRDVIRUS - something went wrong" />
+    <title>DELTARUNE - BIRDVIRUS EDITION</title>
     <link rel="stylesheet" href="styles.css" />
     <style>
       body {
@@ -20,26 +20,38 @@
         overflow-x: hidden;
       }
 
-      .darken {
+      .glitch-overlay {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.7) 100%);
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(255, 0, 255, 0.03) 2px,
+          rgba(255, 0, 255, 0.03) 4px
+        );
         pointer-events: none;
         z-index: 1;
       }
 
-      .vignette {
+      .scanlines {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: radial-gradient(ellipse at center, transparent 50%, #000000 150%);
+        background: repeating-linear-gradient(
+          0deg,
+          rgba(0, 0, 0, 0.15),
+          rgba(0, 0, 0, 0.15) 1px,
+          transparent 1px,
+          transparent 2px
+        );
         pointer-events: none;
-        z-index: 2;
+        z-index: 100;
       }
 
       main {
@@ -50,23 +62,83 @@
       }
 
       h1 {
-        font-size: clamp(3rem, 10vw, 6rem);
+        font-size: clamp(2.5rem, 10vw, 5rem);
         margin: 0 0 0.5rem;
         letter-spacing: 0.3em;
         text-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ff;
-        animation: title-pulse 2s ease-in-out infinite;
+        animation: title-pulse 2s ease-in-out infinite, glitch-h1 3s infinite;
+      }
+
+      @keyframes glitch-h1 {
+        0%, 90%, 100% { transform: translate(0); }
+        92% { transform: translate(-5px, 2px); }
+        94% { transform: translate(5px, -2px); }
+        96% { transform: translate(-3px, -1px); }
+        98% { transform: translate(3px, 1px); }
       }
 
       @keyframes title-pulse {
         0%, 100% { text-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ff; }
-        50% { text-shadow: 0 0 30px #ff66ff, 0 0 60px #ff00ff; }
+        50% { text-shadow: 0 0 30px #ff66ff, 0 0 60px #ff00ff, 0 0 80px #00ffff; }
       }
 
       .subtitle {
-        color: #aaa;
+        color: #ff3333;
         font-size: 1rem;
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
         letter-spacing: 0.2em;
+        animation: subtitle-glitch 4s infinite;
+      }
+
+      @keyframes subtitle-glitch {
+        0%, 85%, 100% { opacity: 1; transform: translate(0); }
+        86% { opacity: 0.8; transform: translate(2px, 0); }
+        87% { opacity: 1; transform: translate(-2px, 0); }
+        88% { opacity: 0.5; }
+        89% { opacity: 1; transform: translate(0); }
+      }
+
+      .virus-container {
+        margin: 1.5rem 0;
+        position: relative;
+        display: inline-block;
+      }
+
+      .virus-img {
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+        width: 150px;
+        height: 150px;
+        animation: virus-float 2s ease-in-out infinite, virus-corrupt 0.5s infinite;
+      }
+
+      @keyframes virus-float {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        25% { transform: translate(-3px, -5px) rotate(-2deg); }
+        50% { transform: translate(0, -8px) rotate(0deg); }
+        75% { transform: translate(3px, -5px) rotate(2deg); }
+      }
+
+      @keyframes virus-corrupt {
+        0%, 95% { filter: hue-rotate(0deg) saturate(1); }
+        96% { filter: hue-rotate(90deg) saturate(2); }
+        97% { filter: hue-rotate(180deg) saturate(3); }
+        98% { filter: hue-rotate(270deg) saturate(2); }
+        99% { filter: hue-rotate(360deg) saturate(1); }
+        100% { filter: hue-rotate(0deg) saturate(1); }
+      }
+
+      .virus-label {
+        font-size: 0.7rem;
+        color: #ff0000;
+        letter-spacing: 0.3em;
+        margin-top: 0.5rem;
+        animation: label-blink 1s step-end infinite;
+      }
+
+      @keyframes label-blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
       }
 
       .heart {
@@ -75,9 +147,16 @@
         height: 20px;
         background: #ff0000;
         transform: rotate(-45deg);
-        margin: 2rem 0;
-        animation: heart-beat 1s ease-in-out infinite;
+        margin: 1rem 0;
+        animation: heart-beat 1s ease-in-out infinite, heart-glitch 2s infinite;
         box-shadow: 0 0 15px #ff0000;
+      }
+
+      @keyframes heart-glitch {
+        0%, 80%, 100% { transform: rotate(-45deg) scale(1); background: #ff0000; }
+        82% { transform: rotate(-45deg) scale(1.3) translate(3px, 0); background: #00ffff; }
+        84% { transform: rotate(-45deg) scale(0.8); background: #ff00ff; }
+        86% { transform: rotate(-45deg) scale(1.1) translate(-3px, 0); background: #ff0000; }
       }
 
       @keyframes heart-beat {
@@ -88,12 +167,43 @@
         60% { transform: rotate(-45deg) scale(1); }
       }
 
+      .tension-bar {
+        width: 300px;
+        max-width: 80vw;
+        height: 20px;
+        background: #222;
+        border: 2px solid #444;
+        margin: 1rem auto;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .tension-fill {
+        height: 100%;
+        width: 100%;
+        background: linear-gradient(90deg, #ff0000, #ff00ff, #00ffff, #ff0000);
+        background-size: 300% 100%;
+        animation: tension-cycle 2s linear infinite;
+      }
+
+      @keyframes tension-cycle {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 300% 50%; }
+      }
+
+      .tension-label {
+        font-size: 0.7rem;
+        letter-spacing: 0.3em;
+        color: #ff3333;
+        margin-bottom: 0.5rem;
+      }
+
       .characters {
         display: flex;
         gap: 2rem;
         justify-content: center;
         flex-wrap: wrap;
-        margin: 2rem 0;
+        margin: 1.5rem 0;
       }
 
       .char {
@@ -102,10 +212,28 @@
         border: 2px solid;
         border-radius: 8px;
         transition: transform 0.3s, box-shadow 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .char::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+        animation: char-shimmer 3s infinite;
+      }
+
+      @keyframes char-shimmer {
+        0% { left: -100%; }
+        50%, 100% { left: 100%; }
       }
 
       .char:hover {
-        transform: translateY(-10px);
+        transform: translateY(-10px) scale(1.05);
       }
 
       .kris { border-color: #ffaa00; background: rgba(255,170,0,0.1); }
@@ -142,13 +270,21 @@
       }
 
       .message {
-        margin: 2rem 0;
+        margin: 1.5rem 0;
         padding: 1.5rem 2rem;
-        border: 1px solid #444;
-        background: rgba(0,0,0,0.5);
+        border: 1px solid #ff00ff;
+        background: rgba(255,0,255,0.05);
         max-width: 500px;
         font-size: 1rem;
         line-height: 1.6;
+        animation: msg-glitch 5s infinite;
+      }
+
+      @keyframes msg-glitch {
+        0%, 90%, 100% { border-color: #ff00ff; transform: translate(0); }
+        91% { border-color: #00ffff; transform: translate(-2px, 1px); }
+        93% { border-color: #ff0000; transform: translate(2px, -1px); }
+        95% { border-color: #ff00ff; transform: translate(0); }
       }
 
       .message .speaker {
@@ -158,62 +294,25 @@
         font-size: 0.9rem;
       }
 
-      .tension-bar {
-        width: 300px;
-        max-width: 80vw;
-        height: 20px;
-        background: #222;
-        border: 2px solid #444;
-        margin: 1.5rem auto;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .tension-fill {
-        height: 100%;
-        width: 75%;
-        background: linear-gradient(90deg, #ff00ff, #ff66ff);
-        animation: tension-pulse 1.5s ease-in-out infinite;
-      }
-
-      @keyframes tension-pulse {
-        0%, 100% { opacity: 0.7; }
-        50% { opacity: 1; }
-      }
-
-      .tension-label {
-        font-size: 0.7rem;
-        letter-spacing: 0.3em;
-        color: #888;
-        margin-bottom: 0.5rem;
-      }
-
-      .shadow-crystal {
-        display: inline-block;
-        width: 30px;
-        height: 40px;
-        background: linear-gradient(135deg, #9933ff, #ff00ff);
-        clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-        margin: 1rem 0;
-        animation: crystal-float 2s ease-in-out infinite;
-        box-shadow: 0 0 20px #ff00ff;
-      }
-
-      @keyframes crystal-float {
-        0%, 100% { transform: translateY(0) rotate(0deg); }
-        50% { transform: translateY(-10px) rotate(5deg); }
-      }
-
       .chaos-state {
         font-size: 0.8rem;
         color: #ff3333;
         letter-spacing: 0.2em;
-        animation: chaos-blink 0.5s step-end infinite;
+        animation: chaos-blink 0.3s step-end infinite;
+        margin-top: 1rem;
       }
 
       @keyframes chaos-blink {
         0%, 100% { opacity: 1; }
         50% { opacity: 0; }
+      }
+
+      .corrupt-text {
+        font-size: 0.75rem;
+        color: #00ffff;
+        margin-top: 1.5rem;
+        opacity: 0.7;
+        letter-spacing: 0.1em;
       }
 
       footer {
@@ -227,14 +326,17 @@
     </style>
   </head>
   <body>
-    <div class="darken"></div>
-    <div class="vignette"></div>
+    <div class="glitch-overlay"></div>
+    <div class="scanlines"></div>
 
     <main>
-      <h1>DELTARUNE</h1>
-      <p class="subtitle">// shadow council //</p>
+      <h1>BIRDVIRUS</h1>
+      <p class="subtitle">// something went very wrong //</p>
 
-      <div class="shadow-crystal"></div>
+      <div class="virus-container">
+        <img src="aqua.webp" alt="???" class="virus-img" onerror="this.style.display='none'" />
+        <div class="virus-label">[ FILE CORRUPTED ]</div>
+      </div>
 
       <div class="heart"></div>
 
@@ -272,10 +374,11 @@
       </div>
 
       <p class="chaos-state">[ CHAOS FORM ACTIVATED ]</p>
+      <p class="corrupt-text">ERROR: UNKNOWN ENTITY DETECTED IN SECTOR 7</p>
     </main>
 
     <footer>
-      toby fox // undertale // deltarune
+      toby fox // undertale // deltarune // birdvirus
     </footer>
   </body>
 </html>
