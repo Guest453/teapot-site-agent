@@ -1,5 +1,6 @@
 name: Deploy site to GitHub Pages
 
+# kristal web source includes the love.js module-loading fix from dee7283
 on:
   push:
     branches: [main]
@@ -39,7 +40,17 @@ jobs:
 
       - name: fetch separate kristal web project
         run: |
-          git clone --depth 1 https://github.com/Guest453/birdvirus-kristal-mod.git "$RUNNER_TEMP/birdvirus-kristal-mod"
+          git clone --depth 1 --branch main https://github.com/Guest453/birdvirus-kristal-mod.git "$RUNNER_TEMP/birdvirus-kristal-mod"
+          git -C "$RUNNER_TEMP/birdvirus-kristal-mod" log -1 --oneline
+
+      - name: verify love.js page uses a shared module variable
+        working-directory: ${{ runner.temp }}/birdvirus-kristal-mod
+        run: |
+          grep -q 'var Module = {' web/index.template.html
+          if grep -q 'const Module' web/index.template.html; then
+            echo "invalid const Module declaration found"
+            exit 1
+          fi
 
       - name: build kristal web separately
         working-directory: ${{ runner.temp }}/birdvirus-kristal-mod
