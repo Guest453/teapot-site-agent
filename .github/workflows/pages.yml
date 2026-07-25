@@ -1,6 +1,6 @@
 name: Deploy site to GitHub Pages
 
-# kristal web source includes the love.js module-loading fix from dee7283
+# kristal web source includes the verified love.js loading fix through 6764646
 on:
   push:
     branches: [main]
