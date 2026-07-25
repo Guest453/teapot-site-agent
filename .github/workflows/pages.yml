@@ -3,7 +3,9 @@ name: Deploy site to GitHub Pages
 on:
   push:
     branches: [main]
-    paths: ["site/**", ".github/workflows/pages.yml"]
+    paths:
+      - "site/**"
+      - ".github/workflows/pages.yml"
   workflow_dispatch:
 
 permissions:
@@ -22,11 +24,41 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - name: checkout teapot site
+        uses: actions/checkout@v5
+
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: prepare unchanged main site
+        run: |
+          mkdir -p "$RUNNER_TEMP/pages"
+          cp -a site/. "$RUNNER_TEMP/pages/"
+
+      - name: fetch separate kristal web project
+        run: |
+          git clone --depth 1 https://github.com/Guest453/birdvirus-kristal-mod.git "$RUNNER_TEMP/birdvirus-kristal-mod"
+
+      - name: build kristal web separately
+        working-directory: ${{ runner.temp }}/birdvirus-kristal-mod
+        run: |
+          npm install --no-audit --no-fund
+          npm run build:web
+
+      - name: add kristal only to temporary pages artifact
+        run: |
+          mkdir -p "$RUNNER_TEMP/pages/kristal"
+          cp -a "$RUNNER_TEMP/birdvirus-kristal-mod/dist/." "$RUNNER_TEMP/pages/kristal/"
+          touch "$RUNNER_TEMP/pages/.nojekyll"
+
       - uses: actions/configure-pages@v5
+
       - uses: actions/upload-pages-artifact@v4
         with:
-          path: site
-      - name: Deploy
+          path: ${{ runner.temp }}/pages
+
+      - name: deploy
         id: deployment
         uses: actions/deploy-pages@v4
