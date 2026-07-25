@@ -1,0 +1,55 @@
+name: sync kristal web
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/sync-kristal.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-kristal-web
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout teapot site
+        uses: actions/checkout@v4
+
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: fetch kristal web source
+        run: |
+          git clone --depth 1 https://github.com/Guest453/birdvirus-kristal-mod.git "$RUNNER_TEMP/birdvirus-kristal-mod"
+
+      - name: build kristal web
+        working-directory: ${{ runner.temp }}/birdvirus-kristal-mod
+        run: |
+          npm install --no-audit --no-fund
+          npm run build:web
+
+      - name: replace only the kristal site folder
+        run: |
+          rm -rf site/kristal
+          mkdir -p site/kristal
+          cp -a "$RUNNER_TEMP/birdvirus-kristal-mod/dist/." site/kristal/
+          touch site/kristal/.nojekyll
+
+      - name: commit generated kristal site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/kristal
+          if git diff --cached --quiet; then
+            echo "kristal web is already current"
+            exit 0
+          fi
+          git commit -m "update kristal web"
+          git push
