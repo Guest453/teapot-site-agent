@@ -1,6 +1,6 @@
 name: Deploy site to GitHub Pages
 
-# kristal web source includes the verified love.js loading fix through 6764646
+# kristal web source includes the verified browser compatibility build through 2101efd
 on:
   push:
     branches: [main]
@@ -43,10 +43,13 @@ jobs:
           git clone --depth 1 --branch main https://github.com/Guest453/birdvirus-kristal-mod.git "$RUNNER_TEMP/birdvirus-kristal-mod"
           git -C "$RUNNER_TEMP/birdvirus-kristal-mod" log -1 --oneline
 
-      - name: verify love.js page uses a shared module variable
+      - name: verify browser compatibility source
         working-directory: ${{ runner.temp }}/birdvirus-kristal-mod
         run: |
+          grep -q 'build-web-v2.mjs' package.json
           grep -q 'var Module = {' web/index.template.html
+          grep -q 'Start Game' web/index.template.html
+          grep -q 'Disabled in the browser build' scripts/build-web-v2.mjs
           if grep -q 'const Module' web/index.template.html; then
             echo "invalid const Module declaration found"
             exit 1
