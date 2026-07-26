@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Fanner's Imagination - IGNORE HIM" />
+    <title>IGNORE HIM</title>
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        background: #000;
+        color: #fff;
+        font-family: 'Courier New', monospace;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow-x: hidden;
+        text-align: center;
+      }
+
+      .glitch-container {
+        position: relative;
+        padding: 2rem;
+      }
+
+      h1 {
+        font-size: clamp(3rem, 15vw, 8rem);
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 0.5em;
+        animation: glitch 0.2s infinite;
+        text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff;
+      }
+
+      @keyframes glitch {
+        0% { transform: translate(2px, 2px); }
+        25% { transform: translate(-2px, -2px); }
+        50% { transform: translate(-2px, 2px); }
+        75% { transform: translate(2px, -2px); }
+        100% { transform: translate(0);
+      }
+
+      .ignore-text {
+        font-size: clamp(1.5rem, 5vw, 4rem);
+        color: #ff0000;
+        margin-top: 1rem;
+        animation: blink 0.1s infinite;
+        font-weight: bold;
+      }
+
+      @keyframes blink {
+        0% { opacity: 1; }
+        50% { opacity: 0; }
+        100% { opacity: 1; }
+      }
+
+      .chaos-wall {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        overflow: hidden;
+        opacity: 0.3;
+        pointer-events: none;
+      }
+
+      .text-particle {
+        position: absolute;
+        white-space: nowrap;
+        font-size: 1.2rem;
+        color: #333;
+        user-select: none;
+      }
+
+      .user-mention {
+        color: #ff00ff;
+        font-size: 2rem;
+        display: block;
+        margin-bottom: 1rem;
+        text-shadow: 0 0 10px #ff00ff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="chaos-wall" id="wall"></div>
+    
+    <div class="glitch-container">
+      <span class="user-mention">@Fanner's Imagination</span>
+      <h1>IGNORE HIM</h1>
+      <p class="ignore-text">IGNORE HIM</p>
+      <p class="ignore-text">IGNORE HIM</p>
+      <p class="ignore-text">IGNORE HIM</p>
+    </div>
+
+    <script>
+      const wall = document.getElementById('wall');
+      const phrases = ['IGNORE HIM', 'DO NOT LOOK', 'STAY AWAY', 'VOID', '01001001', '...'];
+
+      function createParticle() {
+        const p = document.createElement('div');
+        p.className = 'text-particle';
+        p.innerText = phrases[Math.floor(Math.random() * phrases.length)];
+        p.style.left = Math.random() * 100 + 'vw';
+        p.style.top = Math.random() * 100 + 'vh';
+        p.style.fontSize = (Math.random() * 2 + 0.5) + 'rem';
+        p.style.opacity = Math.random();
+        wall.appendChild(p);
+
+        setTimeout(() => {
+          p.remove();
+        }, 5000);
+      }
+
+      setInterval(createParticle, 50);
+    </script>
+  </body>
+</html>
