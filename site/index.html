@@ -1,26 +1,39 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="BIRDVIRUS - mango count page" />
-    <title>BIRDVIRUS - 67 mangos</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div class="glitch-overlay"></div>
-    <div class="scanlines"></div>
-
-    <main>
-      <h1>67 mangos</h1>
-      <p class="subtitle">// mango count updated //</p>
-      <div class="message" style="max-width:700px;margin:2rem auto;">
-        <span class="speaker">system</span>
-        the current mango count is 67.
-      </div>
-    </main>
-    <footer>
-      toby fox // undertale // deltarune // birdvirus
-    </footer>
-  </body>
-</html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Synthet Meow — retro Web Audio subtractive sawtooth synthesizer" />
+<title>Synthet Meow // saw synth</title>
+<style>
+:root{--ink:#211b2b;--paper:#f4e9cf;--cream:#fff8e7;--pink:#ee6f91;--blue:#5b78c7;--mint:#80b99c;--orange:#e58a54;--line:#332944}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:"Courier New",monospace;min-height:100vh;background-image:radial-gradient(#d9cba9 1px,transparent 1px);background-size:8px 8px}.shell{max-width:1100px;margin:auto;padding:30px 18px 45px}.top{display:flex;justify-content:space-between;gap:15px;align-items:end;border-bottom:4px solid var(--line);padding-bottom:17px}.kicker{font-size:12px;letter-spacing:3px;color:var(--pink);font-weight:bold}.title{font-size:clamp(34px,7vw,72px);line-height:.9;margin:8px 0 0;text-shadow:4px 4px 0 #d8c39e}.badge{border:3px solid var(--line);background:var(--cream);padding:10px;font-size:11px;box-shadow:4px 4px 0 var(--line)}.panel{background:var(--cream);border:3px solid var(--line);box-shadow:7px 7px 0 var(--line);padding:20px;margin-top:25px}.intro{display:flex;justify-content:space-between;align-items:center;gap:20px}.intro p{max-width:650px;line-height:1.55;margin:0}.led{color:#b34459;font-weight:bold;white-space:nowrap}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}.group{border:2px solid var(--line);padding:15px;background:#f8efd9}.group h2{font-size:14px;margin:0 0 15px;color:var(--blue);letter-spacing:1px}.control{display:grid;grid-template-columns:1fr 70px;gap:8px;align-items:center;margin:13px 0;font-size:12px}.control output{text-align:right;color:var(--pink);font-weight:bold}input[type=range]{grid-column:1/-1;width:100%;accent-color:var(--pink);cursor:pointer}.keys-wrap{margin-top:23px}.keys-title{display:flex;justify-content:space-between;align-items:center;gap:12px}.keys-title h2{font-size:17px;margin:0}.hint{font-size:11px;color:#6e6474}.keyboard{position:relative;height:190px;margin-top:15px;display:flex;gap:3px;padding:0 4px 10px;border-bottom:3px solid var(--line)}.white{flex:1;background:#fffdf5;border:3px solid var(--line);border-radius:0 0 8px 8px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:15px;min-width:35px;cursor:pointer;box-shadow:0 5px 0 #c8bca5;transition:.08s}.white b{font-size:15px}.white small{display:block;font-size:10px;color:#777;margin-top:4px}.white.active,.white:active{background:#ffd2db;transform:translateY(4px);box-shadow:0 1px 0 #c8bca5}.black{position:absolute;top:0;width:9%;height:112px;background:var(--line);color:white;border:0;border-radius:0 0 5px 5px;z-index:2;display:flex;align-items:flex-end;justify-content:center;padding-bottom:10px;cursor:pointer;box-shadow:3px 4px 0 #9a7d91}.black.active,.black:active{background:var(--pink);transform:translateY(3px)}.b1{left:8.8%}.b2{left:18.8%}.b3{left:38.8%}.b4{left:48.8%}.b5{left:58.8%}.b6{left:78.8%}.b7{left:88.8%}.riff{width:100%;margin-top:20px;background:var(--pink);color:var(--cream);border:3px solid var(--line);box-shadow:5px 5px 0 var(--line);padding:16px;font:700 16px "Courier New";cursor:pointer}.riff:hover{background:var(--orange)}.riff:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--line)}.footer{font-size:11px;text-align:center;margin-top:27px;color:#6e6474}@media(max-width:760px){.grid{grid-template-columns:1fr}.top{align-items:start}.badge{display:none}.keyboard{height:150px}.black{height:85px}.white{padding-bottom:11px}.white small{display:none}.intro{display:block}.led{display:block;margin-top:12px}}
+</style>
+</head>
+<body>
+<main class="shell">
+<header class="top"><div><div class="kicker">MODEL 04 // VOCAL PATCH LAB</div><h1 class="title">SYNTHET MEOW</h1></div><div class="badge">SAW / LPF<br>WEB AUDIO UNIT</div></header>
+<section class="panel">
+<div class="intro"><p>an aggressively friendly subtractive synthesizer. shape a pure sawtooth into a tiny vocal-ish machine, then play it with your computer keyboard.</p><span class="led" id="status">● AUDIO OFFLINE</span></div>
+<div class="grid">
+<section class="group"><h2>AMP ENVELOPE · ADSR</h2><label class="control">ATTACK <output id="attackOut"></output><input id="attack" type="range" min="0.005" max="1" step="0.005" value="0.04"></label><label class="control">DECAY <output id="decayOut"></output><input id="decay" type="range" min="0.02" max="1.5" step="0.01" value="0.22"></label><label class="control">SUSTAIN <output id="sustainOut"></output><input id="sustain" type="range" min="0" max="1" step="0.01" value="0.62"></label><label class="control">RELEASE <output id="releaseOut"></output><input id="release" type="range" min="0.03" max="2" step="0.01" value="0.35"></label></section>
+<section class="group"><h2>FILTER · LOW PASS</h2><label class="control">CUTOFF <output id="cutoffOut"></output><input id="cutoff" type="range" min="50" max="5000" step="1" value="1100"></label><label class="control">RESONANCE / Q <output id="qOut"></output><input id="q" type="range" min="0.1" max="20" step="0.1" value="5"></label></section>
+<section class="group"><h2>FILTER ENVELOPE · AD</h2><label class="control">ATTACK <output id="fAttackOut"></output><input id="fAttack" type="range" min="0.005" max="1.5" step="0.005" value="0.08"></label><label class="control">DECAY <output id="fDecayOut"></output><input id="fDecay" type="range" min="0.02" max="2" step="0.01" value="0.42"></label><label class="control">SWEEP AMOUNT <output id="amountOut"></output><input id="amount" type="range" min="0" max="4000" step="10" value="2100"></label></section>
+</div>
+<div class="keys-wrap"><div class="keys-title"><h2>◼ keyboard map / C4 — E5</h2><span class="hint">white: qwerty row · black: number row</span></div><div class="keyboard" id="keyboard"><button class="white" data-key="q"><b>q</b><small>C4</small></button><button class="white" data-key="w"><b>w</b><small>D4</small></button><button class="white" data-key="e"><b>e</b><small>E4</small></button><button class="white" data-key="r"><b>r</b><small>F4</small></button><button class="white" data-key="t"><b>t</b><small>G4</small></button><button class="white" data-key="y"><b>y</b><small>A4</small></button><button class="white" data-key="u"><b>u</b><small>B4</small></button><button class="white" data-key="i"><b>i</b><small>C5</small></button><button class="white" data-key="o"><b>o</b><small>D5</small></button><button class="white" data-key="p"><b>p</b><small>E5</small></button><button class="black b1" data-key="2">2<br><small>C#</small></button><button class="black b2" data-key="3">3<br><small>D#</small></button><button class="black b3" data-key="5">5<br><small>F#</small></button><button class="black b4" data-key="6">6<br><small>G#</small></button><button class="black b5" data-key="7">7<br><small>A#</small></button><button class="black b6" data-key="9">9<br><small>C#</small></button><button class="black b7" data-key="0">0<br><small>D#</small></button></div></div>
+<button class="riff" id="riff">🎸 PLAY WEEZER RIFF</button>
+</section><div class="footer">click a key to wake the audio engine · exact sequence: 4, r, 4, 5, i, 5, 4, r, 2 · 380ms per note</div>
+</main>
+<script>
+const notes={q:261.63,'2':277.18,w:293.66,'3':311.13,e:329.63,r:349.23,'5':369.99,t:392,'6':415.3,y:440,'7':466.16,u:493.88,i:523.25,'9':554.37,o:587.33,'0':622.25,p:659.25};
+let ctx, master, active=new Map();
+const $=id=>document.getElementById(id); const ids=['attack','decay','sustain','release','cutoff','q','fAttack','fDecay','amount'];
+function value(id){return +$(id).value} function show(id,text){$(id+'Out').textContent=text}
+function refresh(){show('attack',value('attack').toFixed(2)+'s');show('decay',value('decay').toFixed(2)+'s');show('sustain',value('sustain').toFixed(2));show('release',value('release').toFixed(2)+'s');show('cutoff',value('cutoff')+'Hz');show('q',value('q').toFixed(1));show('fAttack',value('fAttack').toFixed(2)+'s');show('fDecay',value('fDecay').toFixed(2)+'s');show('amount',value('amount')+'Hz')} ids.forEach(id=>$(id).addEventListener('input',refresh));refresh();
+function boot(){if(ctx)return;ctx=new (window.AudioContext||window.webkitAudioContext)();master=ctx.createGain();master.gain.value=.22;master.connect(ctx.destination);$('status').textContent='● AUDIO READY';$('status').style.color='#4c9a76'}
+function note(key){if(active.has(key))return;boot();let now=ctx.currentTime,f=notes[key];if(!f)return;let osc=ctx.createOscillator(),filter=ctx.createBiquadFilter(),gain=ctx.createGain();osc.type='sawtooth';osc.frequency.value=f;filter.type='lowpass';filter.Q.value=value('q');let base=value('cutoff'),peak=Math.min(12000,base+value('amount'));filter.frequency.setValueAtTime(Math.max(50,base),now);filter.frequency.linearRampToValueAtTime(peak,now+value('fAttack'));filter.frequency.exponentialRampToValueAtTime(Math.max(50,base),now+value('fAttack')+value('fDecay'));gain.gain.setValueAtTime(0.0001,now);gain.gain.linearRampToValueAtTime(1,now+value('attack'));gain.gain.linearRampToValueAtTime(value('sustain'),now+value('attack')+value('decay'));osc.connect(filter);filter.connect(gain);gain.connect(master);osc.start();active.set(key,{osc,gain});mark(key,true)}
+function off(key){let v=active.get(key);if(!v)return;let now=ctx.currentTime;v.gain.gain.cancelScheduledValues(now);v.gain.gain.setValueAtTime(Math.max(.0001,v.gain.gain.value),now);v.gain.gain.exponentialRampToValueAtTime(.0001,now+value('release'));v.osc.stop(now+value('release')+.05);active.delete(key);setTimeout(()=>mark(key,false),value('release')*1000);}
+function mark(key,on){document.querySelectorAll('[data-key="'+key+'"]').forEach(x=>x.classList.toggle('active',on))}
+window.addEventListener('keydown',e=>{let k=e.key.toLowerCase();if(notes[k]&&!e.repeat){e.preventDefault();note(k)}});window.addEventListener('keyup',e=>{let k=e.key.toLowerCase();if(notes[k])off(k)});document.querySelectorAll('[data-key]').forEach(b=>{b.addEventListener('pointerdown',e=>{e.preventDefault();note(b.dataset.key)});b.addEventListener('pointerup',()=>off(b.dataset.key));b.addEventListener('pointerleave',()=>off(b.dataset.key))});
+$('riff').addEventListener('click',async()=>{boot();let seq=['4','r','4','5','i','5','4','r','2'];for(const k of seq){note(k);await new Promise(resolve=>setTimeout(resolve,300));off(k);await new Promise(resolve=>setTimeout(resolve,80))}});
+</script>
+</body></html>
